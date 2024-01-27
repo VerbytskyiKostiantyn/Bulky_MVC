@@ -1,6 +1,7 @@
 ﻿using BulkyBook.DataAccess.Repository;
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -29,17 +30,37 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 				Value = u.Id.ToString(),
 			});
 			//here we can use both of these methods
-			ViewBag.CategoryList = CategoryList;
+			//ViewBag.CategoryList = CategoryList;
 			//ViewData["CategoryList"] = CategoryList;
-			return View();
+
+			//another method to implemet this
+
+			ProductVM productVM = new()
+			{
+				CategoryList = CategoryList,
+				Product = new Product()
+			};
+			return View(productVM);
 		}
-        [HttpPost]
-		public IActionResult Create(Product obj)
+		[HttpPost]
+		public IActionResult Create(ProductVM productVM)
 		{
-            _unitOfWork.Product.Add(obj);
-            _unitOfWork.Save();
-			TempData["success"] = "Product created successfully";
-			return RedirectToAction("Index");
+			if (ModelState.IsValid)
+			{
+				_unitOfWork.Product.Add(productVM.Product);
+				_unitOfWork.Save();
+				TempData["success"] = "Product created successfully";
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString(),
+				});
+				return View(productVM);
+			}
 		}
 		public IActionResult Delete(int id)
 		{
