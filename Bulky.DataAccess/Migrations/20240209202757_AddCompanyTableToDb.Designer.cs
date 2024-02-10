@@ -4,6 +4,7 @@ using BulkyBook.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240209202757_AddCompanyTableToDb")]
+    partial class AddCompanyTableToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,43 +105,13 @@ namespace BulkyBook.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 4,
+                            Id = 1,
                             City = "Test",
                             Name = "Test",
                             PhoneNumber = "2134534234",
                             PostalCode = "1234",
                             State = "Test",
                             StreetAddress = "123 Test st"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            City = "Tech City",
-                            Name = "Tech Solution",
-                            PhoneNumber = "87786766234",
-                            PostalCode = "12121",
-                            State = "IL",
-                            StreetAddress = "123 Tech st"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Vid City",
-                            Name = "Vivid Books",
-                            PhoneNumber = "21312878865",
-                            PostalCode = "145234",
-                            State = "Il",
-                            StreetAddress = "99 Vid st"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Lala land",
-                            Name = "Readers Club",
-                            PhoneNumber = "89788634234",
-                            PostalCode = "098346",
-                            State = "NY",
-                            StreetAddress = "99 Main st"
                         });
                 });
 
