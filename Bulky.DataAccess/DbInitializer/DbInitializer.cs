@@ -44,11 +44,11 @@ namespace BulkyBook.DataAccess.DbInitializer
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
 
-
+				//admin@donnetmastery.com
 				_userManager.CreateAsync(new ApplicationUser
 				{
-					UserName = "admin@donnetmastery.com",
-					Email = "admin@donnetmastery.com",
+					UserName = "admin@dotnetmastery.com",
+					Email = "admin@dotnetmastery.com",
 					Name = "John Bin",
 					PhoneNumber = "1234567890",
 					StreetAddress = "test 123 Ave",
