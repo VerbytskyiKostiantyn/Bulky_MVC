@@ -27,6 +27,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Identity/Account/Logout";
 });
 
+builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
+{
+	option.ClientId = "54bead2c-bc58-461a-9993-e5c7743e694c";
+	option.ClientSecret = "uOF8Q~FWG3j7SjMpn.T.eTtaqvEg1aCt.dEq6btM";
+});
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
