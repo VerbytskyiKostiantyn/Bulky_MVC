@@ -17,12 +17,10 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 	public class UserController : Controller
 	{
 		private readonly ApplicationDBContext _db;
-		private readonly IUnitOfWork _unitOfWork;
 		private readonly UserManager<IdentityUser> _userManager;
-		public UserController(ApplicationDBContext db, IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+		public UserController(ApplicationDBContext db, UserManager<IdentityUser> userManager)
 		{
 			_db = db;
-			_unitOfWork = unitOfWork;
 			_userManager = userManager;
 		}
 		public IActionResult Index()
@@ -60,14 +58,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 			var user = _userManager.FindByIdAsync(roleManagmentVM.ApplicationUser.Id).Result;
 			if (user != null)
 			{
-				// Видаляємо користувача з поточних ролей
 				var currentRoles = _userManager.GetRolesAsync(user).Result;
 				foreach (var role in currentRoles)
 				{
 					_userManager.RemoveFromRoleAsync(user, role).Wait();
 				}
-
-				// Додаємо користувача до нової ролі
 				_userManager.AddToRoleAsync(user, roleManagmentVM.ApplicationUser.Role).Wait();
 			}
 			var roleid = _db.Companys.FirstOrDefault(u => u.Name == roleManagmentVM.ApplicationUser.Company.Name);
