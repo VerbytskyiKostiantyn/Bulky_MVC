@@ -57,7 +57,7 @@ namespace BulkyBook.DataAccess.DbInitializer
 					City = "Kyiv"
 				}, "Admin123*").GetAwaiter().GetResult();
 
-				ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u=>u.Email == "admin@donnetmastery.com");
+				ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u=>u.Email == "admin@dotnetmastery.com");
 				_userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
 			}
 
